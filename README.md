@@ -3,10 +3,10 @@
 Проект решает задачу бинарной классификации изображений `normal / defect`.
 
 Текущая структура репозитория:
-- `app/` — backend-слой инференса
+- `app/` — backend
 - `data/` — локальный датасет
 - `models/` — обученные веса моделей
-- `notebooks/` — исследовательский ноутбук и демонстрация
+- `notebooks/` — исследовательский ноутбук
 
 ## Модели
 
@@ -20,21 +20,21 @@
 Официальная страница датасета:
 - https://www.vicos.si/resources/kolektorsdd2/
 
-На странице ViCoS Lab указано, что датасет содержит `356` изображений с дефектами и `2979` изображений без дефектов, а также фиксированные train/test-разделения. Источник: ViCoS Lab, KolektorSDD2 dataset page.
+На странице ViCoS Lab указано, что датасет содержит `356` изображений с дефектами и `2979` изображений без дефектов, а также фиксированные train/test-разделения.
 
 Файлы весов:
 - `models/resnet50_main.pth`
 - `models/mobilenetv2_fallback.pth`
 
-## Что лежит в app
+## app
 
 - `app/model_inference/config.py` — конфиг инференса
 - `app/model_inference/preprocessing.py` — загрузка и подготовка изображения
-- `app/model_inference/monitoring.py` — monitoring-метрики
+- `app/model_inference/monitoring.py` — метрики
 - `app/model_inference/model_loader.py` — загрузка моделей
 - `app/model_inference/predictors.py` — функции предсказания
-- `app/model_inference/fallback_service.py` — orchestration fallback-логики
-- `app/inference_service.py` — тонкий сервисный слой для будущей интеграции
+- `app/model_inference/fallback_service.py` — оркестрация fallback-логики
+- `app/inference_service.py` — сервис для будущей интеграции
 
 ## Быстрый пример
 

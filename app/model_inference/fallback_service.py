@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import time
 from pathlib import Path
 
 from app.model_inference.config import (
@@ -36,7 +37,9 @@ def predict_with_fallback(
     try:
         if force_main_failure:
             raise RuntimeError("Main model failure was simulated.")
-        if simulated_delay_seconds > timeout_threshold:
+        if simulated_delay_seconds > 0.0:
+            time.sleep(simulated_delay_seconds)
+        if simulated_delay_seconds >= timeout_threshold:
             raise TimeoutError(
                 f"Main model timed out after {simulated_delay_seconds:.3f}s "
                 f"with timeout threshold {timeout_threshold:.3f}s."
@@ -63,7 +66,9 @@ def predict_with_fallback(
             return {
                 "final_label": LABEL_TO_NAME[prediction],
                 "prediction": prediction,
+                "probabilities": main_result["probabilities"],
                 "confidence": float(main_result["confidence"]),
+                "defect_probability": float(main_result["defect_probability"]),
                 "model_used": "main_model",
                 "fallback_reason": None,
                 "latency_ms": float(latency_ms),
@@ -89,7 +94,9 @@ def predict_with_fallback(
     return {
         "final_label": LABEL_TO_NAME[prediction],
         "prediction": prediction,
+        "probabilities": fallback_result["probabilities"],
         "confidence": float(fallback_result["confidence"]),
+        "defect_probability": float(fallback_result["defect_probability"]),
         "model_used": "fallback_model",
         "fallback_reason": fallback_reason,
         "latency_ms": float(latency_ms),

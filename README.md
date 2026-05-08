@@ -35,6 +35,15 @@
 - `app/model_inference/predictors.py` — функции предсказания
 - `app/model_inference/fallback_service.py` — оркестрация fallback-логики
 - `app/inference_service.py` — сервис для будущей интеграции
+- `app/streamlit_demo.py` — интерактивное Streamlit-демо
+
+## Streamlit-демо
+
+```bash
+streamlit run app/streamlit_demo.py
+```
+
+В демо можно выбрать папку датасета, запустить live-режим с задержкой между кадрами, посмотреть итоговую метку `normal / defect`, время обработки последнего кадра, выбранный режим модели, latency, confidence и причину fallback. Кнопки симуляции включают шум/размытие/темный кадр на входе и timeout основной модели: ResNet50 не отвечает 1 секунду, после чего запрос переводится на MobileNetV2 fallback.
 
 ## Быстрый пример
 
